@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Crescendo</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_send">Send</string>
+    <string name="button_create_group">Register New Group</string>
+    <string name="button_join_group">Join</string>
+    <string name="button_alert">Alert</string>
+    <string name="help_text_groupid">Enter 4-digit Group ID</string>
+</resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.firstapp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".DisplayMessageActivity" />
+
+        <!--
+        A service that extends FirebaseMessagingService.
+        This is required if you want to do any message handling beyond receiving
+        notifications on apps in the background. To receive notifications in
+        foregrounded apps, to receive data payload, to send upstream messages,
+        and so on, you must extend this service.
+        -->
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!--
+        A service that extends FirebaseInstanceIdService to handle the creation,
+        rotation, and updating of registration tokens. This is required for sending
+        to specific devices or for creating device groups.
+        -->
+        <service android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".RegisterGroupActivity" />
+        <activity android:name=".JoinGroupActivity" />
+        <activity android:name=".AlertActivity"></activity>
+    </application>
+
+</manifest>

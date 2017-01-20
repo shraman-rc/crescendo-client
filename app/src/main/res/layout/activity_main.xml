@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableRow
+        android:id="@+id/activity_main_row1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip">
+
+        <EditText
+            android:id="@+id/edit_groupid"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:hint="@string/help_text_groupid" />
+
+        <Button
+            android:id="@+id/button_join_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_join_group"
+            android:onClick="joinGroup" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/activity_main_row2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip">
+
+        <Button
+            android:id="@+id/button_create_group"
+            android:layout_weight="1"
+            android:text="@string/button_create_group"
+            android:onClick="createGroup" />
+
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/activity_main_row3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip">
+
+        <Button
+            android:id="@+id/button_alert"
+            android:layout_weight="1"
+            android:text="@string/button_alert"
+            android:onClick="alert" />
+
+    </TableRow>
+</TableLayout>
