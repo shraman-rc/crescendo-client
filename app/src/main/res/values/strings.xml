@@ -29,4 +29,8 @@
     <string name="menu_stop">Stop</string>
     <string name="is_serial">Serial Present:</string>
     <string name="button">Send</string>
+    <string name="text_size_default">20dp</string>
+    <string name="text_view_label_status">Status:</string>
+    <string name="text_view_label_groupid">Group:</string>
+    <string name="text_view_label_location">Location:</string>
 </resources>

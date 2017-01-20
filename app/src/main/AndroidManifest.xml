@@ -17,7 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DisplayMessageActivity" />
 
         <!--
         A service that extends FirebaseMessagingService.
@@ -43,9 +42,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".RegisterGroupActivity" />
-        <activity android:name=".JoinGroupActivity" />
-        <activity android:name=".AlertActivity"></activity>
     </application>
 
 </manifest>
