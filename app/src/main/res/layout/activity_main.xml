@@ -67,7 +67,6 @@
             android:id="@+id/text_view_label_groupid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@string/text_size_default"
             android:text="@string/text_view_label_groupid"
         />
 
@@ -75,8 +74,7 @@
             android:id="@+id/text_view_groupid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="placeholder"
+            android:text="placeholder text"
         />
     </TableRow>
 
@@ -90,7 +88,6 @@
             android:id="@+id/text_view_label_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@string/text_size_default"
             android:text="@string/text_view_label_status"
         />
 
@@ -98,7 +95,6 @@
             android:id="@+id/text_view_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
             android:text="placeholder text"
         />
     </TableRow>
@@ -113,7 +109,6 @@
             android:id="@+id/text_view_label_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@string/text_size_default"
             android:text="@string/text_view_label_location"
         />
 
@@ -121,7 +116,6 @@
             android:id="@+id/text_view_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
             android:text="placeholder text"
         />
     </TableRow>
