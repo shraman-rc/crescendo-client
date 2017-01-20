@@ -52,19 +52,23 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final int VOLLEY_TIMEOUT_MS = 10000;
 
+    private static final String BLE_COMMAND_MOTOR = "M";
+    private static final String BLE_COMMAND_LED = "1";
+    private static final String BLE_COMMAND_NAV_UP = "U9";
+    private static final String BLE_COMMAND_NAV_DOWN = "D9";
+    private static final String BLE_COMMAND_NAV_FORWARD = "F";
+    private static final String BLE_COMMAND_NAV_BACK = "B";
+    private static final String BLE_COMMAND_NAV_LEFT = "L";
+    private static final String BLE_COMMAND_NAV_RIGHT = "R";
+
     private static int mgid;
     private static String mloc;
     private static long mlast_loc_update_time;
 
-    // yisha start
-    public static final String EXTRAS_DEVICE_NAME = "HMSoft";
-    public static final String EXTRAS_DEVICE_ADDRESS = "5C:F8:21:F9:47:DA";
-    private TextView isSerial;
+    public static final String mDeviceName = "HMSoft";
+    public static final String mDeviceAddress = "04:A3:16:08:B0:B5";
     private TextView mConnectionState;
     private TextView mDataField;
-    private String mDeviceName;
-    private String mDeviceAddress;
-    //  private ExpandableListView mGattServicesList;
     private BluetoothLeService mBluetoothLeService;
     private boolean mConnected = false;
     private BluetoothGattCharacteristic characteristicTX;
@@ -76,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final String LIST_NAME = "NAME";
     private final String LIST_UUID = "UUID";
-    // yisha end
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,28 +92,20 @@ public class MainActivity extends AppCompatActivity {
         // Display firebase token
         Log.d(TAG, "Firebase token: " + MyFirebaseInstanceIDService.token);
 
-        // yisha start
-//        final Intent intent = getIntent();
-        mDeviceName = EXTRAS_DEVICE_NAME;
-        mDeviceAddress = EXTRAS_DEVICE_ADDRESS;
-
         // Sets up UI references.
         mConnectionState = (TextView) findViewById(R.id.text_view_status);
-
         mDataField = (TextView) findViewById(R.id.text_view_data);
 
         final Button buttonOn = (Button) findViewById(R.id.OnLED);
         buttonOn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                changeLED("M");
+                Log.d("Bluetooth Service", "button click");
+                changeLED(BLE_COMMAND_MOTOR);
             }
         });
 
-//        getActionBar().setTitle(mDeviceName);
-//        getActionBar().setDisplayHomeAsUpEnabled(true);
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
-        // yisha end
     }
 
     /** Called when the user clicks the Register Group button */
@@ -347,7 +342,6 @@ public class MainActivity extends AppCompatActivity {
             result.put("time", (new Date()).getTime());
             result.put("wifi-fingerprint", result_fp);
 
-//            Log.d("mainlog", "Result: " + result);
             return result;
 
         } catch (JSONException e) {
@@ -414,10 +408,8 @@ public class MainActivity extends AppCompatActivity {
         System.loadLibrary("native-lib");
     }
 
-    // yisha start
     // Code to manage Service lifecycle.
     private final ServiceConnection mServiceConnection = new ServiceConnection() {
-
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder service) {
             mBluetoothLeService = ((BluetoothLeService.LocalBinder) service).getService();
@@ -427,6 +419,7 @@ public class MainActivity extends AppCompatActivity {
             }
             // Automatically connects to the device upon successful start-up initialization.
             mBluetoothLeService.connect(mDeviceAddress);
+            Log.d("Bluetooth Service", "onServiceConnected connected!");
         }
 
         @Override
@@ -450,6 +443,7 @@ public class MainActivity extends AppCompatActivity {
                 mConnected = true;
                 updateConnectionState(R.string.connected);
                 invalidateOptionsMenu();
+                Log.d("Bluetooth Service","onReceive ACTION_GATT_CONNECTED");
             } else if (BluetoothLeService.ACTION_GATT_DISCONNECTED.equals(action)) {
                 mConnected = false;
                 updateConnectionState(R.string.disconnected);
@@ -458,14 +452,20 @@ public class MainActivity extends AppCompatActivity {
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 // Show all the supported services and characteristics on the user interface.
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
+                Log.d("Bluetooth Service","onReceive ACTION_GATT_DISCOVERED");
             } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
                 displayData(intent.getStringExtra(mBluetoothLeService.EXTRA_DATA));
+                Log.d("Bluetooth Service","onReceive ACTION_DATA_AVAILABLE");
+            } else {
+                Log.d("Bluetooth Service","WAT?");
             }
+
         }
     };
 
     private void clearUI() {
         mDataField.setText(R.string.no_data);
+        Log.d("Bluetooth Service","clearUI cleared UI!");
     }
 
     @Override
@@ -530,7 +530,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void displayData(String data) {
-
         if (data != null) {
             mDataField.setText(data);
         }
@@ -546,7 +545,6 @@ public class MainActivity extends AppCompatActivity {
         String unknownServiceString = getResources().getString(R.string.unknown_service);
         ArrayList<HashMap<String, String>> gattServiceData = new ArrayList<HashMap<String, String>>();
 
-
         // Loops through available GATT Services.
         for (BluetoothGattService gattService : gattServices) {
             HashMap<String, String> currentServiceData = new HashMap<String, String>();
@@ -555,20 +553,19 @@ public class MainActivity extends AppCompatActivity {
                     LIST_NAME, SampleGattAttributes.lookup(uuid, unknownServiceString));
 
             // If the service exists for HM 10 Serial, say so.
-            if(SampleGattAttributes.lookup(uuid, unknownServiceString) == "HM 10 Serial") { isSerial.setText("Yes, serial :-)"); } else {  isSerial.setText("No, serial :-("); }
+            //if(SampleGattAttributes.lookup(uuid, unknownServiceString) == "HM 10 Serial") {
+            //    isSerial.setText("Yes, serial :-)");
+            //} else {
+            //    isSerial.setText("No, serial :-(");
+            //}
             currentServiceData.put(LIST_UUID, uuid);
             gattServiceData.add(currentServiceData);
 
             // get characteristic when UUID matches RX/TX UUID
             characteristicTX = gattService.getCharacteristic(BluetoothLeService.UUID_HM_RX_TX);
             characteristicRX = gattService.getCharacteristic(BluetoothLeService.UUID_HM_RX_TX);
-
+            Log.d("Bluetooth Service", "displayGattServices find RX/TX");
         }
-
-//        if(mConnected) {
-//            mBluetoothLeService.setCharacteristicNotification(characteristicRX, true);
-//        }
-
     }
 
     private static IntentFilter makeGattUpdateIntentFilter() {
@@ -582,13 +579,16 @@ public class MainActivity extends AppCompatActivity {
 
     private void changeLED(String state) {
         String str = state;
-        Log.d(TAG, "Sending result=" + str);
+        Log.d("Bluetooth Service", "Sending result=" + str);
         final byte[] tx = str.getBytes();
         if(mConnected) {
+            Log.d("Bluetooth Service", "changeLED mConnected");
             characteristicTX.setValue(tx);
+            Log.d("Bluetooth Service", "changeLED set TX value");
             mBluetoothLeService.writeCharacteristic(characteristicTX);
+            Log.d("Bluetooth Service", "changeLED write TX");
             mBluetoothLeService.setCharacteristicNotification(characteristicRX, true);
+            Log.d("Bluetooth Service", "changeLED notify RX");
         }
     }
-    // yisha end
 }
