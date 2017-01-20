@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Firebase token: " + MyFirebaseInstanceIDService.token);
 
         // yisha start
-        final Intent intent = getIntent();
+//        final Intent intent = getIntent();
         mDeviceName = EXTRAS_DEVICE_NAME;
         mDeviceAddress = EXTRAS_DEVICE_ADDRESS;
 
