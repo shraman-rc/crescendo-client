@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
     private static int group_id;
 
     // yisha start
-    public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
-    public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
+    public static final String EXTRAS_DEVICE_NAME = "HMSoft";
+    public static final String EXTRAS_DEVICE_ADDRESS = "5C:F8:21:F9:47:DA";
     private TextView isSerial;
     private TextView mConnectionState;
     private TextView mDataField;
@@ -76,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
         // yisha start
         final Intent intent = getIntent();
-        mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
-        mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
+        mDeviceName = EXTRAS_DEVICE_NAME;
+        mDeviceAddress = EXTRAS_DEVICE_ADDRESS;
 
         // Sets up UI references.
         mConnectionState = (TextView) findViewById(R.id.text_view_status);
