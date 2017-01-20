@@ -52,28 +52,33 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final int VOLLEY_TIMEOUT_MS = 10000;
 
-    private static final String BLE_COMMAND_MOTOR = "M";
-    private static final String BLE_COMMAND_LED = "1";
-    private static final String BLE_COMMAND_NAV_UP = "U9";
-    private static final String BLE_COMMAND_NAV_DOWN = "D9";
-    private static final String BLE_COMMAND_NAV_FORWARD = "F";
-    private static final String BLE_COMMAND_NAV_BACK = "B";
-    private static final String BLE_COMMAND_NAV_LEFT = "L";
-    private static final String BLE_COMMAND_NAV_RIGHT = "R";
+    private static final String BLE_OUT_MOTOR = "M";
+    private static final String BLE_OUT_LED = "1";
+    private static final String BLE_OUT_NAV_UP = "U9";
+    private static final String BLE_OUT_NAV_DOWN = "D9";
+    private static final String BLE_OUT_NAV_FORWARD = "F";
+    private static final String BLE_OUT_NAV_BACK = "B";
+    private static final String BLE_OUT_NAV_LEFT = "L";
+    private static final String BLE_OUT_NAV_RIGHT = "R";
+
+    private static final String BLE_IN_FIRST_BUTTON = "0";
+    private static final String BLE_IN_SECOND_BUTTON = "1";
 
     private static int mgid;
     private static String mloc;
     private static long mlast_loc_update_time;
 
+    public static final String DEVICE_ADDRESS_PURPLE = "5C:F8:21:F9:91:56";
+    public static final String DEVICE_ADDRESS_GRAY = "04:A3:16:08:B0:B5";
     public static final String mDeviceName = "HMSoft";
-    public static final String mDeviceAddress = "04:A3:16:08:B0:B5";
+    public static final String mDeviceAddress = DEVICE_ADDRESS_GRAY;
+
     private TextView mConnectionState;
     private TextView mDataField;
     private BluetoothLeService mBluetoothLeService;
     private boolean mConnected = false;
     private BluetoothGattCharacteristic characteristicTX;
     private BluetoothGattCharacteristic characteristicRX;
-
 
     public final static UUID HM_RX_TX =
             UUID.fromString(SampleGattAttributes.HM_RX_TX);
@@ -100,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         buttonOn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("Bluetooth Service", "button click");
-                changeLED(BLE_COMMAND_MOTOR);
+                changeLED(BLE_OUT_MOTOR);
             }
         });
 
