@@ -58,6 +58,16 @@
     </TableRow>
 
     <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip">
+        <Button
+            android:text="On"
+            android:layout_height="wrap_content"
+            android:id="@+id/OnLED" />
+    </TableRow>
+
+    <TableRow
         android:id="@+id/activity_main_row4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -118,5 +128,26 @@
             android:layout_height="wrap_content"
             android:text="placeholder text"
         />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/activity_main_row7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip">
+
+        <TextView
+            android:id="@+id/text_view_label_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_view_label_status"
+            />
+
+        <TextView
+            android:id="@+id/text_view_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="placeholder text"
+            />
     </TableRow>
 </TableLayout>
