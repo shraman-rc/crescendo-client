@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_server_auth">172.16.9.135:5000</string>
-    <string name="app_server_host">172.16.9.135</string>
+    <string name="app_server_auth">175.159.27.134:5000</string>
+    <string name="app_server_host">175.159.27.134</string>
     <integer name="app_server_port">5000</integer>
     <string name="app_server_protocol">http</string>
     <string name="app_server_path_join_group">join</string>
@@ -12,8 +12,8 @@
     <string name="param_name_fcm_token">token</string>
     <integer name="groupid_nonexistent">-1</integer>
 
-    <string name="loc_server_auth">158.132.237.122:8003</string>
-    <string name="loc_server_host">158.132.237.122</string>
+    <string name="loc_server_auth">158.132.236.152:8003</string>
+    <string name="loc_server_host">158.132.236.152</string>
     <integer name="loc_server_port">8003</integer>
     <string name="loc_server_protocol">http</string>
     <string name="loc_server_path_track">track</string>

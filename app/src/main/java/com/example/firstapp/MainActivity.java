@@ -12,11 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -36,6 +36,8 @@ import static java.lang.Integer.parseInt;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    private static final int VOLLEY_TIMEOUT_MS = 10000;
+
     private static int mgid;
     private static String mloc;
     private static long mlast_loc_update_time;
@@ -54,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     /** Called when the user clicks the Register Group button */
     public void createGroup(View view) {
-        //Intent intent = new Intent(this, RegisterGroupActivity.class);
-        //startActivity(intent);
         requestRegister();
     }
 
@@ -64,15 +64,10 @@ public class MainActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.edit_groupid);
         int gid = parseInt(editText.getText().toString());
         requestJoin(gid);
-        //Intent intent = new Intent(this, JoinGroupActivity.class);
-        //intent.putExtra(GROUPID_EXTRA, gid);
-        //startActivity(intent);
     }
 
     /** Called when the user clicks the Register Group button */
     public void alert(View view) {
-        //Intent intent = new Intent(this, AlertActivity.class);
-        //startActivity(intent);
         requestAlert();
     }
 
@@ -202,6 +197,12 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        sr.setRetryPolicy(new DefaultRetryPolicy(
+                VOLLEY_TIMEOUT_MS,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
+        ));
+
         queue.add(sr);
     }
 
@@ -238,7 +239,6 @@ public class MainActivity extends AppCompatActivity {
             obj.put("activity", activity);
 
             JSONArray available = new JSONArray();
-//			List<ScanResult> tmp_scan_result = wifiManager.getScanResults();
 
             for (ScanResult scanResult : wifiManager.getScanResults()) {
                 JSONObject ap = new JSONObject();
@@ -246,7 +246,6 @@ public class MainActivity extends AppCompatActivity {
                 ap.put("SSID", scanResult.SSID);
                 ap.put("frequency", scanResult.frequency);
                 ap.put("level", scanResult.level);
-                //netwrok.put("timestamp", String.valueOf(scanResult.timestamp));
                 ap.put("capabilities", scanResult.capabilities);
                 available.put(ap);
             }
@@ -321,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Localization", response.toString());
                         mlast_loc_update_time = (new Date()).getTime();
                         try {
-                            mloc = response.get(loc_key).toString();
+                            mloc = response.getString(loc_key);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -331,7 +330,7 @@ public class MainActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        VolleyLog.d("mainlog", "Error: " + error.getMessage());
+                        Log.d("Localization", "Error: " + error.getMessage());
                     }
                 }) {
             // Passing some request headers
