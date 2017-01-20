@@ -7,4 +7,8 @@
     <string name="button_join_group">Join</string>
     <string name="button_alert">Alert</string>
     <string name="help_text_groupid">Enter 4-digit Group ID</string>
+    <string name="text_size_default">20dp</string>
+    <string name="text_view_label_status">Status:</string>
+    <string name="text_view_label_groupid">Group:</string>
+    <string name="text_view_label_location">Location:</string>
 </resources>

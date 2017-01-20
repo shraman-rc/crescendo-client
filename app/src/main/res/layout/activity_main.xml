@@ -56,4 +56,73 @@
             android:onClick="alert" />
 
     </TableRow>
+
+    <TableRow
+        android:id="@+id/activity_main_row4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip">
+
+        <TextView
+            android:id="@+id/text_view_label_groupid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@string/text_size_default"
+            android:text="@string/text_view_label_groupid"
+        />
+
+        <TextView
+            android:id="@+id/text_view_groupid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="placeholder"
+        />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/activity_main_row5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip">
+
+        <TextView
+            android:id="@+id/text_view_label_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@string/text_size_default"
+            android:text="@string/text_view_label_status"
+        />
+
+        <TextView
+            android:id="@+id/text_view_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="placeholder text"
+        />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/activity_main_row6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip">
+
+        <TextView
+            android:id="@+id/text_view_label_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@string/text_size_default"
+            android:text="@string/text_view_label_location"
+        />
+
+        <TextView
+            android:id="@+id/text_view_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="placeholder text"
+        />
+    </TableRow>
 </TableLayout>
