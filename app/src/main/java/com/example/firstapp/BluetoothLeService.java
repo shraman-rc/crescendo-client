@@ -64,7 +64,7 @@ public class BluetoothLeService extends Service {
     public final static UUID UUID_HM_RX_TX =
             UUID.fromString(SampleGattAttributes.HM_RX_TX);
 
-    
+
     // Implements callback methods for GATT events that the app cares about.  For example,
     // connection change and services discovered.
     private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
@@ -110,6 +110,7 @@ public class BluetoothLeService extends Service {
         public void onCharacteristicChanged(BluetoothGatt gatt,
                                             BluetoothGattCharacteristic characteristic) {
             broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
+            Log.d("BLElog", "onCharacteristicChanged");
         }
     };
 
@@ -121,19 +122,28 @@ public class BluetoothLeService extends Service {
     private void broadcastUpdate(final String action,final BluetoothGattCharacteristic characteristic) {
         final Intent intent = new Intent(action);
 
-            // For all other profiles, writes the data formatted in HEX.
-            final byte[] data = characteristic.getValue();
-    		Log.i(TAG, "data"+characteristic.getValue());
+        // For all other profiles, writes the data formatted in HEX.
+        final byte[] data = characteristic.getValue();
+        Log.i(TAG, "data"+characteristic.getValue());
 
-            if (data != null && data.length > 0) {
-                final StringBuilder stringBuilder = new StringBuilder(data.length);
-                for(byte byteChar : data)
+        if (data != null && data.length > 0) {
+            final StringBuilder stringBuilder = new StringBuilder(data.length);
+            for(byte byteChar : data)
                 stringBuilder.append(String.format("%02X ", byteChar));
-                Log.d(TAG, String.format("%s", new String(data)));
-                // getting cut off when longer, need to push on new line, 0A
-                intent.putExtra(EXTRA_DATA,String.format("%s", new String(data)));
 
-            }
+            Log.d(TAG, "Data byte 0: " + data);
+            //fake sth
+            if(data[0] == 0)
+                data[0] = '0';
+            else if(data[0] == 1)
+                data[0] = '1';
+            Log.d(TAG, "Data byte 1: " + data);
+
+            Log.d(TAG, String.format("%s", new String(data)));
+            // getting cut off when longer, need to push on new line, 0A
+            intent.putExtra(EXTRA_DATA,String.format("%s", new String(data)));
+
+        }
         sendBroadcast(intent);
     }
 
@@ -274,15 +284,15 @@ public class BluetoothLeService extends Service {
      * Write to a given char
      * @param characteristic The characteristic to write to
      */
-	public void writeCharacteristic(BluetoothGattCharacteristic characteristic) {
-		if (mBluetoothAdapter == null || mBluetoothGatt == null) {
-			Log.w(TAG, "BluetoothAdapter not initialized");
-			return;
-		}
+    public void writeCharacteristic(BluetoothGattCharacteristic characteristic) {
+        if (mBluetoothAdapter == null || mBluetoothGatt == null) {
+            Log.w(TAG, "BluetoothAdapter not initialized");
+            return;
+        }
 
-		mBluetoothGatt.writeCharacteristic(characteristic);
-	}   
-    
+        mBluetoothGatt.writeCharacteristic(characteristic);
+    }
+
     /**
      * Enables or disables notification on a give characteristic.
      *
@@ -296,6 +306,7 @@ public class BluetoothLeService extends Service {
             return;
         }
         mBluetoothGatt.setCharacteristicNotification(characteristic, enabled);
+        Log.d("BLElog", "Service setCharacteristicNotification");
 
         // This is specific to Heart Rate Measurement.
         if (UUID_HM_RX_TX.equals(characteristic.getUuid())) {
