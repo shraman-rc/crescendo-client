@@ -33,4 +33,5 @@
     <string name="text_view_label_status">Status:</string>
     <string name="text_view_label_groupid">Group:</string>
     <string name="text_view_label_location">Location:</string>
+    <string name="text_view_label_data">Data:</string>
 </resources>

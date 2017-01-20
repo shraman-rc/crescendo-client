@@ -140,7 +140,7 @@
             android:id="@+id/text_view_label_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_view_label_status"
+            android:text="@string/text_view_label_data"
             />
 
         <TextView
