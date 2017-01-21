@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_server_auth">175.159.27.134:5000</string>
-    <string name="app_server_host">175.159.27.134</string>
+    <string name="app_server_auth">175.159.27.205:5000</string>
+    <string name="app_server_host">175.159.27.205</string>
     <integer name="app_server_port">5000</integer>
     <string name="app_server_protocol">http</string>
     <string name="app_server_path_join_group">join</string>
