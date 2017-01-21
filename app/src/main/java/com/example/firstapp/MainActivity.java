@@ -52,14 +52,14 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private static final int VOLLEY_TIMEOUT_MS = 10000;
 
-    private static final String BLE_OUT_MOTOR = "M";
-    private static final String BLE_OUT_LED = "1";
-    private static final String BLE_OUT_NAV_UP = "U9";
-    private static final String BLE_OUT_NAV_DOWN = "D9";
-    private static final String BLE_OUT_NAV_FORWARD = "F";
-    private static final String BLE_OUT_NAV_BACK = "B";
-    private static final String BLE_OUT_NAV_LEFT = "L";
-    private static final String BLE_OUT_NAV_RIGHT = "R";
+    public static final String BLE_OUT_MOTOR = "M";
+    public static final String BLE_OUT_LED = "1";
+    public static final String BLE_OUT_NAV_UP = "U9";
+    public static final String BLE_OUT_NAV_DOWN = "D9";
+    public static final String BLE_OUT_NAV_FORWARD = "F";
+    public static final String BLE_OUT_NAV_BACK = "B";
+    public static final String BLE_OUT_NAV_LEFT = "L";
+    public static final String BLE_OUT_NAV_RIGHT = "R";
 
     private static final String BLE_IN_FIRST_BUTTON = "0";
     private static final String BLE_IN_SECOND_BUTTON = "1";
@@ -71,14 +71,14 @@ public class MainActivity extends AppCompatActivity {
     public static final String DEVICE_ADDRESS_PURPLE = "5C:F8:21:F9:91:56";
     public static final String DEVICE_ADDRESS_GRAY = "04:A3:16:08:B0:B5";
     public static final String mDeviceName = "HMSoft";
-    public static final String mDeviceAddress = DEVICE_ADDRESS_GRAY;
+    public static final String mDeviceAddress = DEVICE_ADDRESS_PURPLE;
 
-    private TextView mConnectionState;
-    private TextView mDataField;
-    private BluetoothLeService mBluetoothLeService;
-    private boolean mConnected = false;
-    private BluetoothGattCharacteristic characteristicTX;
-    private BluetoothGattCharacteristic characteristicRX;
+    private static TextView mConnectionState;
+    private static TextView mDataField;
+    private static BluetoothLeService mBluetoothLeService;
+    private static boolean mConnected = false;
+    private static BluetoothGattCharacteristic characteristicTX;
+    private static BluetoothGattCharacteristic characteristicRX;
 
     public final static UUID HM_RX_TX =
             UUID.fromString(SampleGattAttributes.HM_RX_TX);
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         requestJoin(gid);
     }
 
-    /** Called when the user clicks the Register Group button */
+    /** Called when the user clicks the Alert button */
     public void alert(View view) {
         requestAlert();
     }
@@ -537,6 +537,7 @@ public class MainActivity extends AppCompatActivity {
     private void displayData(String data) {
         if (data != null) {
             mDataField.setText(data);
+            requestAlert();
         }
     }
 
@@ -582,7 +583,7 @@ public class MainActivity extends AppCompatActivity {
         return intentFilter;
     }
 
-    private void changeLED(String state) {
+    public static void changeLED(String state) {
         String str = state;
         Log.d("Bluetooth Service", "Sending result=" + str);
         final byte[] tx = str.getBytes();

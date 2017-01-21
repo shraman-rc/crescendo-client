@@ -48,6 +48,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
             sendNotification(remoteMessage.getData());
+            MainActivity.changeLED(MainActivity.BLE_OUT_MOTOR);
         }
 
         // Check if message contains a notification payload.
