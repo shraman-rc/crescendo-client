@@ -150,4 +150,17 @@
             android:text="placeholder text"
             />
     </TableRow>
+        <TableRow
+        android:id="@+id/activity_main_row8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip">
+
+        <Button
+            android:id="@+id/OnForward"
+            android:layout_weight="1"
+            android:text="F"/>
+
+    </TableRow>
+
 </TableLayout>

@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String DEVICE_ADDRESS_PURPLE = "5C:F8:21:F9:91:56";
     public static final String DEVICE_ADDRESS_GRAY = "04:A3:16:08:B0:B5";
     public static final String mDeviceName = "HMSoft";
-    public static final String mDeviceAddress = DEVICE_ADDRESS_PURPLE;
+    public static final String mDeviceAddress = DEVICE_ADDRESS_GRAY;
 
     private static TextView mConnectionState;
     private static TextView mDataField;
@@ -105,9 +105,11 @@ public class MainActivity extends AppCompatActivity {
         buttonOn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Log.d("Bluetooth Service", "button click");
-                changeLED(BLE_OUT_MOTOR);
+                //changeLED(BLE_OUT_MOTOR);
+                changeLED(BLE_OUT_NAV_FORWARD);
             }
         });
+
 
         Intent gattServiceIntent = new Intent(this, BluetoothLeService.class);
         bindService(gattServiceIntent, mServiceConnection, BIND_AUTO_CREATE);
